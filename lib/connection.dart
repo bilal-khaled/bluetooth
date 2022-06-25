@@ -36,7 +36,7 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
 
   // Availability
   late StreamSubscription<BluetoothDiscoveryResult>
-      _discoveryStreamSubscription;
+  _discoveryStreamSubscription;
   late bool _isDiscovering;
 
   @override
@@ -57,12 +57,12 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
         devices = bondedDevices
             .map(
               (device) => _DeviceWithAvailability(
-                device,
-                widget.checkAvailability
-                    ? _DeviceAvailability.maybe
-                    : _DeviceAvailability.yes,
-              ),
-            )
+            device,
+            widget.checkAvailability
+                ? _DeviceAvailability.maybe
+                : _DeviceAvailability.yes,
+          ),
+        )
             .toList();
       });
     });
@@ -79,17 +79,17 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
   void _startDiscovery() {
     _discoveryStreamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
-      setState(() {
-        Iterator i = devices.iterator;
-        while (i.moveNext()) {
-          var _device = i.current;
-          if (_device.device == r.device) {
-            _device.availability = _DeviceAvailability.yes;
-            _device.rssi = r.rssi;
-          }
-        }
-      });
-    });
+          setState(() {
+            Iterator i = devices.iterator;
+            while (i.moveNext()) {
+              var _device = i.current;
+              if (_device.device == r.device) {
+                _device.availability = _DeviceAvailability.yes;
+                _device.rssi = r.rssi;
+              }
+            }
+          });
+        });
 
     _discoveryStreamSubscription.onDone(() {
       setState(() {
@@ -111,14 +111,14 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
     List<BluetoothDeviceListEntry> list = devices
         .map(
           (_device) => BluetoothDeviceListEntry(
-            device: _device.device,
-            // rssi: _device.rssi,
-            // enabled: _device.availability == _DeviceAvailability.yes,
-            onTap: () {
-              widget.onCahtPage(_device.device);
-            },
-          ),
-        )
+        device: _device.device,
+        // rssi: _device.rssi,
+        // enabled: _device.availability == _DeviceAvailability.yes,
+        onTap: () {
+          widget.onCahtPage(_device.device);
+        },
+      ),
+    )
         .toList();
     return ListView(
       children: list,

@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       'First measurment ?',
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     TextButton(
                       onPressed: () {
